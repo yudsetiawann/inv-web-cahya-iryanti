@@ -1,106 +1,233 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react"; // Pastikan lucide-react terinstall
+import { ChevronDown } from "lucide-react";
 
-const Cover = () => {
-  // Fungsi untuk scroll mulus ke section berikutnya saat amplop "dibuka"
-  const handleScroll = () => {
-    window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
-  };
-
+export default function HeroSection() {
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center bg-olive overflow-hidden">
-      {/* Subtle Background Glow (Cahaya lembut di belakang) */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(254,250,224,0.05)_0%,transparent_70%)]" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center section-olive overflow-hidden px-6">
+      {/* Background botanical pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="botanical"
+              x="0"
+              y="0"
+              width="120"
+              height="120"
+              patternUnits="userSpaceOnUse"
+            >
+              {/* Leaf motif */}
+              <ellipse
+                cx="60"
+                cy="30"
+                rx="8"
+                ry="20"
+                fill="none"
+                stroke="#fefae0"
+                strokeWidth="0.8"
+                transform="rotate(-20 60 30)"
+              />
+              <ellipse
+                cx="60"
+                cy="30"
+                rx="8"
+                ry="20"
+                fill="none"
+                stroke="#fefae0"
+                strokeWidth="0.8"
+                transform="rotate(20 60 30)"
+              />
+              <line
+                x1="60"
+                y1="10"
+                x2="60"
+                y2="50"
+                stroke="#fefae0"
+                strokeWidth="0.5"
+              />
+              <ellipse
+                cx="30"
+                cy="80"
+                rx="6"
+                ry="15"
+                fill="none"
+                stroke="#fefae0"
+                strokeWidth="0.8"
+                transform="rotate(-10 30 80)"
+              />
+              <line
+                x1="30"
+                y1="65"
+                x2="30"
+                y2="95"
+                stroke="#fefae0"
+                strokeWidth="0.5"
+              />
+              <ellipse
+                cx="90"
+                cy="90"
+                rx="6"
+                ry="15"
+                fill="none"
+                stroke="#fefae0"
+                strokeWidth="0.8"
+                transform="rotate(10 90 90)"
+              />
+              <line
+                x1="90"
+                y1="75"
+                x2="90"
+                y2="105"
+                stroke="#fefae0"
+                strokeWidth="0.5"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#botanical)" />
+        </svg>
+      </div>
 
-      {/* Layer 1: Kertas Undangan (Berada di dalam amplop) */}
+      {/* Envelope body */}
       <motion.div
-        initial={{ y: 150, opacity: 0 }}
-        animate={{ y: -50, opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-[85%] max-w-[420px] h-[480px] md:h-[520px] bg-crema rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.3)] p-6 md:p-8 flex flex-col items-center justify-center z-10"
+        initial={{ opacity: 0, scale: 0.85, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 w-full max-w-sm mx-auto"
       >
-        {/* Bingkai Dalam Kertas (Double Border Premium) */}
-        <div className="absolute inset-3 border border-olive/20 rounded-lg pointer-events-none" />
-        <div className="absolute inset-4 border border-olive/10 rounded-md pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col items-center space-y-6 w-full">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-            className="font-serif text-xs md:text-sm tracking-[0.3em] text-olive-dark uppercase text-center"
-          >
-            The Wedding Of
-          </motion.p>
-
-          <div className="text-center space-y-1">
-            <h1 className="font-script text-7xl md:text-8xl text-olive drop-shadow-sm">
-              Iryanti
-            </h1>
-            <span className="block font-serif text-3xl md:text-4xl text-olive/60 italic pb-2">
-              &
-            </span>
-            <h1 className="font-script text-7xl md:text-8xl text-olive drop-shadow-sm">
-              Cahya
-            </h1>
-          </div>
-
-          <div className="w-12 h-px bg-olive/30 my-6" />
-
-          <p className="font-serif text-lg md:text-xl tracking-widest text-olive-dark font-medium">
-            24 . 05 . 2026
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Layer 2: Bungkus Amplop Depan (Menutupi bagian bawah kertas) */}
-      <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: "0%" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute bottom-0 w-[150%] h-[55%] md:h-[60%] bg-olive-light z-20 rounded-t-[50%] scale-x-[1.2] shadow-[0_-20px_40px_rgba(0,0,0,0.25)] border-t border-crema/10 flex items-start justify-center pt-8"
-      >
-        {/* Layer 3: Wax Seal (Stempel Lilin Inisial) */}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{
-            delay: 1.5,
-            type: "spring",
-            stiffness: 120,
-            damping: 10,
+        {/* Envelope card */}
+        <div
+          className="relative bg-[#5a5e4d] rounded-2xl shadow-2xl overflow-hidden"
+          style={{
+            boxShadow:
+              "0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(254,250,224,0.1)",
           }}
-          className="relative w-16 h-16 bg-olive-dark rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.3)] border border-olive/30 flex items-center justify-center -mt-16 z-30"
         >
-          {/* Detail cincin dalam stempel */}
-          <div className="absolute inset-1 border border-olive/20 rounded-full" />
-          <span className="font-script text-2xl text-crema opacity-90 drop-shadow-md">
-            IC
+          {/* Envelope flap top - decorative */}
+          <div
+            className="absolute top-0 left-0 right-0 h-0 border-l-[176px] border-r-[176px] border-t-[80px] border-l-transparent border-r-transparent border-t-[#4a4e3d] opacity-60"
+            style={{ borderLeftWidth: "50%", borderRightWidth: "50%" }}
+          />
+
+          {/* Wax seal ornament */}
+          <motion.div
+            initial={{ scale: 0, rotate: -20 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{
+              delay: 0.8,
+              duration: 0.6,
+              type: "spring",
+              stiffness: 200,
+            }}
+            className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-14 h-14 rounded-full flex items-center justify-center"
+            style={{
+              background: "radial-gradient(circle, #c9a96e, #a0784a)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+            }}
+          >
+            <span
+              className="font-script text-[#fefae0] text-2xl leading-none"
+              style={{ marginTop: "-2px" }}
+            >
+              C
+            </span>
+          </motion.div>
+
+          {/* Content */}
+          <div className="pt-24 pb-12 px-8 text-center">
+            {/* Invitation label */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="font-sans text-[#fefae0] tracking-[0.3em] text-xs uppercase opacity-70 mb-6"
+            >
+              Undangan Pernikahan
+            </motion.p>
+
+            {/* Ampersand decoration */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.9, duration: 1 }}
+              className="mb-2"
+            >
+              <h1
+                className="font-script text-[#fefae0] leading-tight"
+                style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
+              >
+                Cahya Lesmana
+              </h1>
+              <div className="font-serif text-[#c9a96e] text-3xl italic my-0 leading-none">
+                &amp;
+              </div>
+              <h1
+                className="font-script text-[#fefae0] leading-tight"
+                style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
+              >
+                Iryanti, S.Pd
+              </h1>
+            </motion.div>
+
+            {/* Ornament line */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="flex items-center justify-center gap-3 my-6"
+            >
+              <div className="h-px w-12 bg-[#c9a96e] opacity-60" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#c9a96e]" />
+              <div className="h-px w-12 bg-[#c9a96e] opacity-60" />
+            </motion.div>
+
+            {/* Date */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3, duration: 0.8 }}
+            >
+              <p className="font-sans text-[#fefae0] tracking-[0.2em] text-sm opacity-80">
+                MINGGU · 24 MEI 2026
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Quote below card */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 1 }}
+          className="text-center font-serif italic text-[#3d3b29] text-sm mt-8 px-4 opacity-70 leading-relaxed"
+        >
+          &quot;Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+          pasangan-pasangan untukmu...&quot;
+          <br />
+          <span className="text-xs tracking-widest not-italic opacity-60">
+            — QS. Ar-Rum: 21
           </span>
-        </motion.div>
+        </motion.p>
       </motion.div>
 
-      {/* Layer 4: Call to Action (Tombol Buka Undangan) */}
-      <motion.button
+      {/* Scroll cue */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 1 }}
-        onClick={handleScroll}
-        className="absolute bottom-8 z-30 flex flex-col items-center gap-2 text-crema group cursor-pointer"
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="font-serif text-xs md:text-sm tracking-[0.2em] uppercase opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-          Buka Undangan
+        <span className="font-sans text-[#fefae0] text-xs tracking-[0.3em] uppercase opacity-50">
+          Scroll
         </span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-6 h-6 opacity-70 group-hover:opacity-100 group-hover:text-white transition-all duration-300" />
+          <ChevronDown size={18} className="text-[#fefae0] opacity-50" />
         </motion.div>
-      </motion.button>
+      </motion.div>
     </section>
   );
-};
-
-export default Cover;
+}

@@ -33,7 +33,7 @@ const AudioPlayer = () => {
 
   // Link lagu placeholder
   const audioUrl =
-    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+    "/audio/a-night-to-remember.mpeg";
 
   const togglePlay = () => {
     if (!audioRef.current) return;

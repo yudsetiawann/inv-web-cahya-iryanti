@@ -1,174 +1,205 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const TARGET_DATE = "2026-05-24T09:00:00+07:00";
+const TARGET_DATE = new Date("2026-05-24T09:00:00+07:00");
 
-// Komponen helper untuk animasi angka yang berdetak
-const AnimatedNumber = ({ value }: { value: string }) => (
-  <div className="relative overflow-hidden h-[60px] md:h-[72px] flex items-center justify-center">
-    <AnimatePresence mode="popLayout">
-      <motion.span
-        key={value}
-        initial={{ y: 20, opacity: 0, scale: 0.8 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: -20, opacity: 0, scale: 0.8 }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="font-serif text-5xl md:text-6xl text-crema tracking-tighter font-medium tabular-nums"
-      >
-        {value}
-      </motion.span>
-    </AnimatePresence>
-  </div>
-);
+function getTimeLeft() {
+  const now = new Date();
+  const diff = TARGET_DATE.getTime() - now.getTime();
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+  };
+}
 
-const TimeUnit = ({ value, label }: { value: string; label: string }) => (
-  <div className="flex flex-col items-center">
-    <AnimatedNumber value={value} />
-    <span className="font-serif text-xs tracking-wider uppercase text-crema/60 pt-2 border-t border-crema/20 mt-1 w-full text-center">
-      {label}
-    </span>
-  </div>
-);
+function MiniCalendar() {
+  const year = 2026;
+  const month = 4; // Mei (0-indexed)
+  const weddingDay = 24;
 
-const Countdown = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: "00",
-    hours: "00",
-    minutes: "00",
-    seconds: "00",
+  // 1 Mei 2026 jatuh pada hari Jumat (index 5)
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate(); // 31
+  const days = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+  const cells: (number | null)[] = Array(firstDay).fill(null);
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i);
+
+  return (
+    <div className="w-full max-w-xs mx-auto mt-8 border-t border-[#fefae0]/10 pt-8">
+      <div className="text-center mb-6">
+        <span className="font-sans text-[#fefae0] text-xs tracking-[0.25em] uppercase opacity-70">
+          Mei 2026
+        </span>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center mb-2">
+        {days.map((d) => (
+          <div
+            key={d}
+            className="font-sans text-[10px] text-[#fefae0] opacity-50 uppercase tracking-wide"
+          >
+            {d}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center">
+        {cells.map((day, i) => (
+          <div key={i} className="relative">
+            {day ? (
+              day === weddingDay ? (
+                <motion.div
+                  initial={{ scale: 0.8 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  className="w-8 h-8 mx-auto rounded-full flex items-center justify-center font-sans font-medium text-sm text-[#6b705c] shadow-[0_0_15px_rgba(254,250,224,0.3)]"
+                  style={{ background: "#fefae0" }}
+                >
+                  {day}
+                </motion.div>
+              ) : (
+                <div className="w-8 h-8 mx-auto flex items-center justify-center font-sans text-[#fefae0] text-sm opacity-60">
+                  {day}
+                </div>
+              )
+            ) : null}
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-center gap-2 mt-6">
+        <div className="w-2 h-2 rounded-full bg-[#fefae0] opacity-80" />
+        <span className="font-serif italic text-[#fefae0] text-sm opacity-80">
+          Hari Pernikahan Kami
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function ElegantCountdown() {
+  const [time, setTime] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
-    const calculateTimeLeft = () => {
-      const difference = +new Date(TARGET_DATE) - +new Date();
-      if (difference <= 0) return;
-
-      setTimeLeft({
-        days: String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(
-          2,
-          "0",
-        ),
-        hours: String(
-          Math.floor((difference / (1000 * 60 * 60)) % 24),
-        ).padStart(2, "0"),
-        minutes: String(Math.floor((difference / 1000 / 60) % 60)).padStart(
-          2,
-          "0",
-        ),
-        seconds: String(Math.floor((difference / 1000) % 60)).padStart(2, "0"),
-      });
-    };
-
-    const timer = setInterval(calculateTimeLeft, 1000);
-    calculateTimeLeft();
-    return () => clearInterval(timer);
+    setTime(getTimeLeft()); // Set nilai awal agar tidak menunggu 1 detik pertama
+    const t = setInterval(() => setTime(getTimeLeft()), 1000);
+    return () => clearInterval(t);
   }, []);
 
-  const daysInMonth = 31;
-  const startDayOfWeek = 5;
-  const dayLabels = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
-  const calendarDates = [];
-
-  for (let i = 0; i < startDayOfWeek; i++) {
-    calendarDates.push({ day: dayLabels[i], num: "", active: false });
-  }
-  for (let i = 1; i <= daysInMonth; i++) {
-    calendarDates.push({
-      day: dayLabels[(startDayOfWeek + i - 1) % 7],
-      num: i,
-      active: i === 24,
-    });
-  }
-
-  // Mencegah Hydration Mismatch dengan tidak me-render angka sebelum client siap
+  // Mencegah Hydration Mismatch dari sisi client vs server
   if (!isMounted) return null;
 
+  const units = [
+    { label: "Hari", value: time.days },
+    { label: "Jam", value: time.hours },
+    { label: "Menit", value: time.minutes },
+    { label: "Detik", value: time.seconds },
+  ];
+
   return (
-    // Ticket Styling Container
-    <div className="relative w-full bg-olive rounded-xl shadow-[0_20px_50px_rgba(107,112,92,0.3)] overflow-hidden border border-olive-light/30">
-      {/* Ticket Cutouts (Lubang tiket di kanan-kiri) */}
-      <div className="absolute top-1/2 -left-4 w-8 h-8 bg-crema rounded-full -translate-y-1/2 shadow-inner border-r border-olive/10" />
-      <div className="absolute top-1/2 -right-4 w-8 h-8 bg-crema rounded-full -translate-y-1/2 shadow-inner border-l border-olive/10" />
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8 }}
+      className="bg-[#6b705c] py-16 px-6 rounded-2xl overflow-hidden shadow-2xl"
+    >
+      <div className="max-w-sm mx-auto text-center">
+        {/* Label Atas */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="font-sans text-[#fefae0] tracking-[0.3em] text-xs uppercase opacity-60 mb-2"
+        >
+          Menuju Hari Istimewa
+        </motion.p>
 
-      {/* Garis putus-putus pembatas tiket */}
-      <div className="absolute top-1/2 left-8 right-8 border-t-[1.5px] border-dashed border-crema/20 -translate-y-1/2 z-0" />
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="font-serif text-[#fefae0] mb-8 tracking-widest uppercase font-medium"
+          style={{ fontSize: "clamp(1.5rem, 6vw, 2.2rem)" }}
+        >
+          Hari Bahagia
+        </motion.h2>
 
-      {/* Bagian Atas: Pesan Pembuka & Timer */}
-      <div className="p-10 md:p-14 pb-16 md:pb-20 space-y-12 relative z-10 bg-gradient-to-b from-olive to-olive/95">
-        <div className="text-center space-y-6">
-          <p className="font-serif text-base tracking-wider text-crema/80 italic leading-relaxed max-w-sm mx-auto">
-            &quot;Atas karunia dan rahmat Allah SWT, kami bermaksud menyelenggarakan
-            acara pernikahan kami.&quot;
-          </p>
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="font-serif text-sm tracking-wider text-[#fefae0]/80 italic leading-relaxed mx-auto mb-10 max-w-[280px]"
+        >
+          &quot;Atas karunia dan rahmat Allah SWT, kami bermaksud
+          menyelenggarakan acara pernikahan kami.&quot;
+        </motion.p>
 
-        <div className="flex items-center justify-around gap-2 max-w-sm mx-auto">
-          <TimeUnit value={timeLeft.days} label="Hari" />
-          <span className="text-crema/40 text-3xl font-light -mt-6">:</span>
-          <TimeUnit value={timeLeft.hours} label="Jam" />
-          <span className="text-crema/40 text-3xl font-light -mt-6">:</span>
-          <TimeUnit value={timeLeft.minutes} label="Menit" />
-          <span className="text-crema/40 text-3xl font-light -mt-6">:</span>
-          <TimeUnit value={timeLeft.seconds} label="Detik" />
-        </div>
-      </div>
-
-      {/* Bagian Bawah: Kalender */}
-      <div className="p-10 md:p-14 pt-16 md:pt-20 space-y-10 relative z-10 bg-olive-dark/40">
-        <div className="text-center space-y-2">
-          {/* Efek "Foil Stamp" pada teks */}
-          <p className="font-serif text-sm tracking-[0.3em] bg-clip-text text-transparent bg-gradient-to-r from-crema/60 via-crema to-crema/60 font-medium uppercase">
-            Hari Bahagia
-          </p>
-          <p className="font-serif font-medium text-2xl text-crema tracking-widest">
-            MEI 2026
-          </p>
-        </div>
-
-        <div className="grid grid-cols-7 gap-1 md:gap-2 max-w-md mx-auto bg-black/10 backdrop-blur-sm p-5 rounded-2xl border border-crema/10 shadow-inner">
-          {calendarDates.map((date, index) => (
-            <div
-              key={index}
-              className={`relative flex flex-col items-center justify-center h-10 md:h-12 rounded-full font-serif text-crema transition-colors ${
-                date.active ? "bg-crema text-olive z-10 shadow-lg" : ""
-              }`}
+        {/* Countdown Boxes dengan efek AnimatePresence dari UI 1 */}
+        <div className="grid grid-cols-4 gap-3 mb-4">
+          {units.map((u, i) => (
+            <motion.div
+              key={u.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + i * 0.1 }}
+              className="flex flex-col items-center"
             >
-              <span
-                className={`text-[9px] md:text-[10px] uppercase ${date.active ? "text-olive/70" : "text-crema/50"}`}
+              <div
+                className="w-full aspect-square rounded-xl flex items-center justify-center relative overflow-hidden"
+                style={{
+                  background: "rgba(254,250,224,0.08)",
+                  border: "1px solid rgba(254,250,224,0.15)",
+                  boxShadow: "inset 0 1px 0 rgba(254,250,224,0.1)",
+                }}
               >
-                {date.day}
-              </span>
-              <span
-                className={`text-base md:text-lg ${date.active ? "font-bold" : ""}`}
-              >
-                {date.num}
-              </span>
-
-              {/* Pulsing Glow untuk tanggal aktif */}
-              {date.active && (
-                <>
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={u.value}
+                    initial={{ y: 20, opacity: 0, scale: 0.8 }}
+                    animate={{ y: 0, opacity: 1, scale: 1 }}
+                    exit={{ y: -20, opacity: 0, scale: 0.8 }}
                     transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
                     }}
-                    className="absolute inset-0 bg-crema rounded-full -z-10 blur-[4px]"
-                  />
-                  <div className="absolute -inset-1 border border-crema rounded-full opacity-50" />
-                </>
-              )}
-            </div>
+                    className="font-serif text-[#fefae0] font-light leading-none tabular-nums"
+                    style={{ fontSize: "clamp(1.5rem, 6vw, 2rem)" }}
+                  >
+                    {String(u.value).padStart(2, "0")}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+              <span className="font-sans text-[#fefae0] text-[9px] tracking-[0.2em] uppercase opacity-60 mt-3">
+                {u.label}
+              </span>
+            </motion.div>
           ))}
         </div>
-      </div>
-    </div>
-  );
-};
 
-export default Countdown;
+        <p className="font-sans text-[#fefae0] text-xs opacity-50 tracking-widest uppercase mt-6">
+          24 · 05 · 2026
+        </p>
+
+        {/* Kalender Bulan Mei 2026 */}
+        <MiniCalendar />
+      </div>
+    </motion.section>
+  );
+}

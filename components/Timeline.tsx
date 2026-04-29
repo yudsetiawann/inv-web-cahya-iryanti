@@ -1,53 +1,110 @@
-import { Handshake, Users, Camera } from "lucide-react";
+"use client";
 
-interface TimelineItemProps {
-  time: string;
-  title: string;
-  icon: React.ElementType;
-}
+import { motion } from "framer-motion";
+import { Home, Utensils, Camera } from "lucide-react";
 
-const TimelineItem = ({ time, title, icon: Icon }: TimelineItemProps) => (
-  <div className="flex items-center gap-6 group">
-    <div className="flex items-center gap-4 w-40 flex-shrink-0 justify-end">
-      <p className="font-serif text-lg font-medium text-olive-dark group-hover:text-olive transition-colors">
-        {time}
-      </p>
-      <div className="w-14 h-14 rounded-full bg-olive-light text-olive flex items-center justify-center border-2 border-olive/10 group-hover:bg-olive group-hover:text-crema transition-colors duration-300">
-        <Icon className="w-6 h-6" />
-      </div>
-    </div>
-    <div className="flex-1 flex items-center">
-      <h4 className="font-serif text-base font-medium tracking-wide text-olive group-hover:font-semibold transition-all">
-        {title}
-      </h4>
-      <div className="flex-1 border-t-2 border-dashed border-olive/20 ml-6" />
-    </div>
-  </div>
-);
+const itinerary = [
+  {
+    time: "09.00",
+    label: "Akad Nikah",
+    desc: "Prosesi ijab kabul dan akad pernikahan",
+    icon: Home,
+  },
+  {
+    time: "10.00",
+    label: "Resepsi & Ramah Tamah",
+    desc: "Makan siang bersama dengan hidangan pilihan",
+    icon: Utensils,
+  },
+  {
+    time: "13.00",
+    label: "Penutupan",
+    desc: "Sesi foto bersama & perpisahan",
+    icon: Camera,
+  },
+];
 
-const Timeline = () => {
+export default function Timeline() {
   return (
-    <div className="space-y-12 flex flex-col items-center">
-      <div className="text-center">
-        <h2 className="font-script text-5xl text-olive pb-4">
-          Rangkaian Acara
-        </h2>
-        <div className="w-24 h-0.5 bg-olive/20 mx-auto" />
-      </div>
+    <section className="section-cream-dark py-16 px-6">
+      <div className="max-w-sm mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="font-sans text-[#6b705c] tracking-[0.3em] text-xs uppercase opacity-60 mb-2">
+            Rundown
+          </p>
+          <h2
+            className="font-script text-[#6b705c]"
+            style={{ fontSize: "clamp(2rem, 10vw, 3rem)" }}
+          >
+            Ringkasan Kegiatan
+          </h2>
+        </motion.div>
 
-      <div className="relative w-full max-w-lg space-y-10 pl-16">
-        <div className="absolute left-[110px] top-6 bottom-6 w-px border-l-2 border-dashed border-olive/20 z-0" />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical dashed line */}
+          <div className="absolute left-[29px] top-4 bottom-4 w-px timeline-line" />
 
-        <TimelineItem time="09:00 WIB" title="AKAD NIKAH" icon={Handshake} />
-        <TimelineItem
-          time="10:00 WIB"
-          title="RESEPSI & RAMAH TAMAH"
-          icon={Users}
-        />
-        <TimelineItem time="13:00 WIB" title="FOTO BERSAMA" icon={Camera} />
+          <div className="space-y-7">
+            {itinerary.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="flex gap-5 relative"
+                >
+                  {/* Icon circle */}
+                  <div className="relative z-10 flex-shrink-0 w-[60px] flex flex-col items-center">
+                    <div
+                      className="w-[58px] h-[58px] rounded-full flex items-center justify-center"
+                      style={{
+                        background: i % 2 === 0 ? "#6b705c" : "#fefae0",
+                        border: `2px solid ${i % 2 === 0 ? "#6b705c" : "rgba(107,112,92,0.3)"}`,
+                        boxShadow: "0 4px 12px rgba(107,112,92,0.15)",
+                      }}
+                    >
+                      <Icon
+                        size={20}
+                        className={
+                          i % 2 === 0 ? "text-[#fefae0]" : "text-[#6b705c]"
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 pb-2 pt-2">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span
+                        className="font-sans text-xs tracking-widest font-medium"
+                        style={{ color: "#c9a96e" }}
+                      >
+                        {item.time}
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-[#2d2d2d] text-lg font-medium leading-tight">
+                      {item.label}
+                    </h3>
+                    <p className="font-sans text-[#6b705c] text-xs opacity-70 mt-1 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Timeline;
+}
