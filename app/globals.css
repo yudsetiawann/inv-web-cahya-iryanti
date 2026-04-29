@@ -1,26 +1,25 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Konfigurasi Palet Warna */
+  --color-olive: #6b705c;
+  --color-olive-dark: #585c4c;
+  --color-olive-light: #8d927d;
+
+  --color-crema: #fefae0;
+  --color-crema-dark: #f1e6b3;
+
+  /* Konfigurasi Tipografi */
+  --font-script: var(--font-pinyon), cursive;
+  --font-serif: var(--font-lora), serif;
+
+  /* Konfigurasi Animasi Custom */
+  --animate-spin-slow: spin 10s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base styling dan reset */
+@layer base {
+  body {
+    @apply bg-crema text-olive font-serif antialiased;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
