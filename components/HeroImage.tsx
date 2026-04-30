@@ -21,8 +21,9 @@ const HeroImage = () => {
         {/* Masking Foto utama (Inner Arch) */}
         <div className="relative aspect-[3/4] w-[280px] md:w-[340px] bg-crema-dark rounded-t-full rounded-b-xl shadow-[0_20px_50px_rgba(107,112,92,0.2)] overflow-hidden border-8 border-white z-10">
           <Image
-            src="https://images.unsplash.com/photo-1591604466107-dd9ba465752d?q=80&w=600&auto=format&fit=crop"
-            alt="Iryanti & Cahya" // Alt text sudah disesuaikan
+            // URL diganti dengan foto estetika bunga putih klasik
+            src="/images/heroImage.jpeg"
+            alt="rings in hand"
             fill
             className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
             sizes="(max-w-sm) 100vw, 340px"
