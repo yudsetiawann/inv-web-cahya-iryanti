@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Pernikahan Cahya & Iryanti",
     images: [
       {
-        url: "/images/rings.png", // Akan otomatis membaca dari public/images/rings.png
+        url: "/images/rings.jpeg", // Akan otomatis membaca dari public/images/rings.jpeg
         width: 1200, // Ukuran standar rekomendasi WhatsApp & Facebook
         height: 630,
         alt: "Cincin Pernikahan Cahya & Iryanti",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Undangan Pernikahan | Cahya & Iryanti",
     description: "Minggu, 24 Mei 2026",
-    images: ["/images/rings.png"],
+    images: ["/images/rings.jpeg"],
   },
 };
 
