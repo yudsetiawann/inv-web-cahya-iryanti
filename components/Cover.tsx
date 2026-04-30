@@ -9,6 +9,7 @@ export default function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
     const params = new URLSearchParams(window.location.search);
     const to = params.get("to");
