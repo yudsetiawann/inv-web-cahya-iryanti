@@ -69,7 +69,7 @@ const AudioPlayer = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-6 text-center py-10 w-full">
+    <div className="flex flex-col items-center justify-center space-y-6 text-center pb-10 w-full">
       {/* Header Kecil */}
       <div className="flex items-center gap-2 text-olive/80">
         <Music className="w-4 h-4" />

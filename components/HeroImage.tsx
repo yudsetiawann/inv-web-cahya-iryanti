@@ -5,7 +5,7 @@ import { Quote } from "lucide-react";
 
 const HeroImage = () => {
   return (
-    <div className="flex flex-col items-center space-y-16 py-10">
+    <div className="flex flex-col items-center space-y-16 pt-10">
       {/* Container Foto dengan Efek Arch (Lengkungan) Klasik & Elegan */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
