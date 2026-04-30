@@ -10,24 +10,24 @@ const events = [
     title: "Akad Nikah",
     time: "09.00 WIB - SELESAI",
     venue: "Kediaman Mempelai Wanita",
-    address: "Jl. jalan ke cipaku",
-    mapsUrl: "https://maps.google.com",
+    address: "Kp. Wangun Rt 005 Rw 010 Ds. Barumekar Kec. Parungponteng Kab tasikmalaya",
+    mapsUrl: "https://maps.app.goo.gl/MAUN8PUiJ5r4MVEr6",
   },
   {
     icon: GlassWater,
     title: "Resepsi",
     time: "10.00 WIB – SELESAI",
     venue: "Kediaman Mempelai Wanita",
-    address: "Jl. jalan ke cipaku",
-    mapsUrl: "https://maps.google.com",
+    address: "Kp. Wangun Rt 005 Rw 010 Ds. Barumekar Kec. Parungponteng Kab tasikmalaya",
+    mapsUrl: "https://maps.app.goo.gl/MAUN8PUiJ5r4MVEr6",
   },
 ];
 
 export default function EventDetails() {
   return (
-    <section className="bg-[#fefae0] py-20 px-6 relative overflow-hidden">
+    <section className="bg-crema py-20 relative overflow-hidden">
       {/* Dekorasi Latar Belakang (Opsional, agar tidak terlalu kosong) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-white/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Bagian Header */}
@@ -38,11 +38,11 @@ export default function EventDetails() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 space-y-3"
         >
-          <p className="font-sans text-[#6b705c] tracking-[0.3em] text-xs uppercase font-medium opacity-70">
+          <p className="font-sans text-olive tracking-[0.3em] text-xs uppercase font-medium opacity-70">
             Waktu & Tempat
           </p>
           <h2
-            className="font-script text-[#6b705c]"
+            className="font-script text-olive"
             style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)" }}
           >
             Detail Acara
@@ -61,9 +61,9 @@ export default function EventDetails() {
                 key={event.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.8, delay: i * 0.2, ease: "easeOut" }}
-                className="group relative bg-white rounded-[2rem] p-10 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(107,112,92,0.06)] border border-[#6b705c]/10 hover:shadow-[0_20px_50px_rgba(107,112,92,0.12)] hover:-translate-y-1 transition-all duration-500"
+                className="group relative bg-white/20 rounded-[2rem] p-10 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(107,112,92,0.06)] border border-[#6b705c]/10 hover:shadow-[0_20px_50px_rgba(107,112,92,0.12)] hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Inner Border Halus */}
                 <div className="absolute inset-3 border border-[#6b705c]/5 rounded-[1.5rem] pointer-events-none" />
