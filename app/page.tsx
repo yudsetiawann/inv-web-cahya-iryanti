@@ -26,16 +26,16 @@ export default function Home() {
 
       {/* Kontainer Utama dengan Whitespace Premium */}
       <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24 space-y-24 md:space-y-32">
-        {/* 2. Audio Player Section */}
-        <motion.div {...fadeInUpVariant}>
-          <AudioPlayer />
-        </motion.div>
-
         {/* 3. Main Hero Image */}
         <motion.div {...fadeInUpVariant}>
           <HeroImage />
         </motion.div>
 
+        {/* 2. Audio Player Section */}
+        <motion.div {...fadeInUpVariant}>
+          <AudioPlayer />
+        </motion.div>
+        
         {/* 4. Countdown & Kalender Section */}
         <motion.div {...fadeInUpVariant}>
           <Countdown />
