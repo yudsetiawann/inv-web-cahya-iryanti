@@ -9,9 +9,7 @@ export default function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
-    // Mengambil parameter '?to=' dari URL saat komponen dimuat
     const params = new URLSearchParams(window.location.search);
     const to = params.get("to");
     if (to) {
@@ -21,7 +19,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#6b705c] overflow-hidden px-6">
-      {/* Background botanical pattern */}
+      {/* Background botanical pattern (tetap sama) */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -33,7 +31,6 @@ export default function HeroSection() {
               height="120"
               patternUnits="userSpaceOnUse"
             >
-              {/* Leaf motif */}
               <ellipse
                 cx="60"
                 cy="30"
@@ -62,56 +59,18 @@ export default function HeroSection() {
                 stroke="#fefae0"
                 strokeWidth="0.5"
               />
-              <ellipse
-                cx="30"
-                cy="80"
-                rx="6"
-                ry="15"
-                fill="none"
-                stroke="#fefae0"
-                strokeWidth="0.8"
-                transform="rotate(-10 30 80)"
-              />
-              <line
-                x1="30"
-                y1="65"
-                x2="30"
-                y2="95"
-                stroke="#fefae0"
-                strokeWidth="0.5"
-              />
-              <ellipse
-                cx="90"
-                cy="90"
-                rx="6"
-                ry="15"
-                fill="none"
-                stroke="#fefae0"
-                strokeWidth="0.8"
-                transform="rotate(10 90 90)"
-              />
-              <line
-                x1="90"
-                y1="75"
-                x2="90"
-                y2="105"
-                stroke="#fefae0"
-                strokeWidth="0.5"
-              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#botanical)" />
         </svg>
       </div>
 
-      {/* Envelope body */}
       <motion.div
         initial={{ opacity: 0, scale: 0.85, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-sm mx-auto mt-10"
       >
-        {/* Envelope card */}
         <div
           className="relative bg-[#5a5e4d] rounded-2xl shadow-2xl overflow-hidden"
           style={{
@@ -119,39 +78,45 @@ export default function HeroSection() {
               "0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(254,250,224,0.1)",
           }}
         >
-          {/* Envelope flap top - decorative */}
+          {/* Envelope flap top */}
           <div
             className="absolute top-0 left-0 right-0 h-0 border-l-[176px] border-r-[176px] border-t-[80px] border-l-transparent border-r-transparent border-t-[#4a4e3d] opacity-60"
             style={{ borderLeftWidth: "50%", borderRightWidth: "50%" }}
           />
 
-          {/* Wax seal ornament */}
+          {/* --- WAX SEAL ORNAMENT PREMIUM --- */}
           <motion.div
-            initial={{ scale: 0, rotate: -20 }}
+            initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{
               delay: 0.8,
-              duration: 0.6,
+              duration: 0.8,
               type: "spring",
-              stiffness: 200,
+              stiffness: 150,
             }}
-            className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-14 h-14 rounded-full flex items-center justify-center"
+            className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-16 h-16 rounded-full flex items-center justify-center"
             style={{
-              background: "radial-gradient(circle, #c9a96e, #a0784a)",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+              background:
+                "radial-gradient(circle at 30% 30%, #d4af37, #a0784a 80%)",
+              boxShadow:
+                "0 6px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,255,255,0.2)",
+              border: "2px solid #c9a96e",
             }}
           >
-            <span
-              className="font-script text-[#fefae0] text-2xl leading-none"
-              style={{ marginTop: "-2px" }}
-            >
-              C
-            </span>
+            {/* Tekstur stempel lilin (Cincin dalam) */}
+            <div className="absolute inset-1 rounded-full border border-[#fefae0]/20 flex items-center justify-center">
+              <div className="flex flex-col items-center">
+                <span className="font-script text-[#fefae0] text-xl leading-none">
+                  C&I
+                </span>
+                {/* Garis kecil di bawah monogram agar lebih presisi/formal */}
+                <div className="h-[0.5px] w-6 bg-[#fefae0]/40 mt-0.5" />
+              </div>
+            </div>
           </motion.div>
 
           {/* Content */}
           <div className="pt-24 pb-12 px-8 text-center flex flex-col items-center">
-            {/* --- BAGIAN NAMA TAMU --- */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -163,7 +128,6 @@ export default function HeroSection() {
               </p>
               <div className="min-h-[40px] flex items-center justify-center">
                 <p className="font-serif text-[#fefae0] text-lg md:text-xl font-medium tracking-wide border-b border-[#c9a96e]/40 pb-2 px-6">
-                  {/* Menghindari hydration error dengan isMounted, fallback jika nama tidak diisi */}
                   {isMounted
                     ? guestName || "Bapak/Ibu/Saudara/i"
                     : "Bapak/Ibu/Saudara/i"}
@@ -171,7 +135,6 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Invitation label */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,7 +144,6 @@ export default function HeroSection() {
               Undangan Pernikahan
             </motion.p>
 
-            {/* Ampersand decoration */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -205,7 +167,6 @@ export default function HeroSection() {
               </h1>
             </motion.div>
 
-            {/* Ornament line */}
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
@@ -217,36 +178,34 @@ export default function HeroSection() {
               <div className="h-px w-12 bg-[#c9a96e] opacity-60" />
             </motion.div>
 
-            {/* Date */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3, duration: 0.8 }}
             >
-              <p className="font-sans text-[#fefae0] tracking-[0.2em] text-xs opacity-80">
-                MINGGU · 24 MEI 2026
+              <p className="font-sans text-[#fefae0] tracking-[0.2em] text-xs opacity-80 uppercase">
+                Minggu · 24 Mei 2026
               </p>
             </motion.div>
           </div>
         </div>
 
-        {/* Quote below card */}
         {/* <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6, duration: 1 }}
-          className="text-center font-serif italic text-[#3d3b29] text-sm mt-8 px-4 opacity-70 leading-relaxed"
+          className="text-center font-serif italic text-[#3d3b29] text-[11px] mt-8 px-4 opacity-70 leading-relaxed uppercase tracking-wider"
         >
           &quot;Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
           pasangan-pasangan untukmu...&quot;
           <br />
-          <span className="text-xs tracking-widest not-italic opacity-60">
-            — QS. Ar-Rum: 21
+          <span className="text-[10px] tracking-widest not-italic opacity-60">
+            — QS. Ar-Rum: 21 —
           </span>
         </motion.p> */}
       </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue (tetap sama) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

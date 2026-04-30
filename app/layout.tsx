@@ -16,9 +16,38 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Fernanda & Gustavo • Website Undangan",
+  // Sangat penting untuk menentukan metadataBase agar Next.js bisa membaca path gambar relatif dengan benar saat di-deploy
+  metadataBase: new URL("https://cahya-iryanti-wedding.vercel.app/"), // Ganti dengan domain asli nantinya
+
+  title: "Undangan Pernikahan Cahya & Iryanti",
   description:
-    "Website undangan digital untuk pernikahan Fernanda & Gustavo pada 14 November 2025.",
+    "Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada hari bahagia kami.",
+
+  openGraph: {
+    title: "Undangan Pernikahan | Cahya & Iryanti",
+    description:
+      "Minggu, 24 Mei 2026. Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir.",
+    url: "/",
+    siteName: "Pernikahan Cahya & Iryanti",
+    images: [
+      {
+        url: "/images/rings.png", // Akan otomatis membaca dari public/images/rings.png
+        width: 1200, // Ukuran standar rekomendasi WhatsApp & Facebook
+        height: 630,
+        alt: "Cincin Pernikahan Cahya & Iryanti",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+
+  // Tambahan opsional untuk preview di Twitter/X
+  twitter: {
+    card: "summary_large_image",
+    title: "Undangan Pernikahan | Cahya & Iryanti",
+    description: "Minggu, 24 Mei 2026",
+    images: ["/images/rings.png"],
+  },
 };
 
 export default function RootLayout({
@@ -27,9 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning={true}>
       <body
-        className={`${pinyon.variable} ${lora.variable} bg-crema text-olive antialiased font-serif`}
+        className={`${pinyon.variable} ${lora.variable}`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

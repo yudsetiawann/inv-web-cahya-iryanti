@@ -54,6 +54,7 @@ const DressCode = () => {
               src="/images/suit.png" // Pastikan file bernama suit.png ada di folder public
               alt="Dress Code Pria"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="object-contain"
             />
           </motion.div>
@@ -78,6 +79,7 @@ const DressCode = () => {
               src="/images/dress.png" // Pastikan file bernama dress.png ada di folder public
               alt="Dress Code Wanita"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="object-contain"
             />
           </motion.div>
