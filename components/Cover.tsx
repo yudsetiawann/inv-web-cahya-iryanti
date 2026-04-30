@@ -2,10 +2,25 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [guestName, setGuestName] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+    // Mengambil parameter '?to=' dari URL saat komponen dimuat
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get("to");
+    if (to) {
+      setGuestName(to);
+    }
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center section-olive overflow-hidden px-6">
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#6b705c] overflow-hidden px-6">
       {/* Background botanical pattern */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +109,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, scale: 0.85, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full max-w-sm mx-auto"
+        className="relative z-10 w-full max-w-sm mx-auto mt-10"
       >
         {/* Envelope card */}
         <div
@@ -135,13 +150,33 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Content */}
-          <div className="pt-24 pb-12 px-8 text-center">
+          <div className="pt-24 pb-12 px-8 text-center flex flex-col items-center">
+            {/* --- BAGIAN NAMA TAMU --- */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="mb-8 w-full"
+            >
+              <p className="font-sans text-[#fefae0] text-[10px] tracking-widest uppercase opacity-60 mb-2">
+                Kepada Yth.
+              </p>
+              <div className="min-h-[40px] flex items-center justify-center">
+                <p className="font-serif text-[#fefae0] text-lg md:text-xl font-medium tracking-wide border-b border-[#c9a96e]/40 pb-2 px-6">
+                  {/* Menghindari hydration error dengan isMounted, fallback jika nama tidak diisi */}
+                  {isMounted
+                    ? guestName || "Bapak/Ibu/Saudara/i"
+                    : "Bapak/Ibu/Saudara/i"}
+                </p>
+              </div>
+            </motion.div>
+
             {/* Invitation label */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="font-sans text-[#fefae0] tracking-[0.3em] text-xs uppercase opacity-70 mb-6"
+              className="font-sans text-[#fefae0] tracking-[0.3em] text-xs uppercase opacity-50 mb-6"
             >
               Undangan Pernikahan
             </motion.p>
@@ -188,7 +223,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3, duration: 0.8 }}
             >
-              <p className="font-sans text-[#fefae0] tracking-[0.2em] text-sm opacity-80">
+              <p className="font-sans text-[#fefae0] tracking-[0.2em] text-xs opacity-80">
                 MINGGU · 24 MEI 2026
               </p>
             </motion.div>
@@ -196,7 +231,7 @@ export default function HeroSection() {
         </div>
 
         {/* Quote below card */}
-        <motion.p
+        {/* <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6, duration: 1 }}
@@ -208,7 +243,7 @@ export default function HeroSection() {
           <span className="text-xs tracking-widest not-italic opacity-60">
             — QS. Ar-Rum: 21
           </span>
-        </motion.p>
+        </motion.p> */}
       </motion.div>
 
       {/* Scroll cue */}
@@ -216,16 +251,16 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="font-sans text-[#fefae0] text-xs tracking-[0.3em] uppercase opacity-50">
+        <span className="font-sans text-[#fefae0] text-[10px] tracking-[0.3em] uppercase opacity-50">
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >
-          <ChevronDown size={18} className="text-[#fefae0] opacity-50" />
+          <ChevronDown size={16} className="text-[#fefae0] opacity-50" />
         </motion.div>
       </motion.div>
     </section>
