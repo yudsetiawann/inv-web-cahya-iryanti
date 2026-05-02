@@ -46,9 +46,9 @@ export default function Home() {
         </motion.div>
 
         {/* 7. Dress Code Section */}
-        <motion.div {...fadeInUpVariant}>
+        {/* <motion.div {...fadeInUpVariant}>
           <DressCode />
-        </motion.div>
+        </motion.div> */}
 
         {/* 8. Digital Gift / QR Section */}
         <motion.div {...fadeInUpVariant}>
