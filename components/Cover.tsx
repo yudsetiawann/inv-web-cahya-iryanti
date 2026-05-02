@@ -19,7 +19,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#6b705c] overflow-hidden px-6">
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#793c2a] overflow-hidden px-6">
       {/* Background botanical pattern (tetap sama) */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +73,7 @@ export default function HeroSection() {
         className="relative z-10 w-full max-w-sm mx-auto mt-10"
       >
         <div
-          className="relative bg-[#5a5e4d] rounded-2xl shadow-2xl overflow-hidden"
+          className="relative bg-[#5e2d1a] rounded-2xl shadow-2xl overflow-hidden"
           style={{
             boxShadow:
               "0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(254,250,224,0.1)",
@@ -81,7 +81,7 @@ export default function HeroSection() {
         >
           {/* Envelope flap top */}
           <div
-            className="absolute top-0 left-0 right-0 h-0 border-l-[176px] border-r-[176px] border-t-[80px] border-l-transparent border-r-transparent border-t-[#4a4e3d] opacity-60"
+            className="absolute top-0 left-0 right-0 h-0 border-l-[176px] border-r-[176px] border-t-[80px] border-l-transparent border-r-transparent border-t-[#4a2314] opacity-60"
             style={{ borderLeftWidth: "50%", borderRightWidth: "50%" }}
           />
 
@@ -151,21 +151,35 @@ export default function HeroSection() {
               transition={{ delay: 0.9, duration: 1 }}
               className="mb-2"
             >
-              <h1
-                className="font-script text-[#fefae0] leading-tight"
-                style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
-              >
-                Cahya Lesmana
-              </h1>
-              <div className="font-serif text-[#c9a96e] text-3xl italic my-0 leading-none">
+              {/* Mempelai Pria */}
+              <div className="flex flex-col items-center">
+                <h1
+                  className="font-script text-[#fefae0] leading-tight"
+                  style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
+                >
+                  Cahya Lesmana
+                </h1>
+                <p className="font-serif text-[#c9a96e]/80 text-[11px] leading-relaxed tracking-wide mt-0.5">
+                  Putra ke-2 dari Bapak Waliman, S.Sos. dan Ibu Yati Rahmayati
+                </p>
+              </div>
+
+              <div className="font-serif text-[#c9a96e] text-3xl italic my-3 leading-none">
                 &amp;
               </div>
-              <h1
-                className="font-script text-[#fefae0] leading-tight"
-                style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
-              >
-                Iryanti, S.Pd
-              </h1>
+
+              {/* Mempelai Wanita */}
+              <div className="flex flex-col items-center">
+                <h1
+                  className="font-script text-[#fefae0] leading-tight"
+                  style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
+                >
+                  Iryanti, S.Sos
+                </h1>
+                <p className="font-serif text-[#c9a96e]/80 text-[11px] leading-relaxed tracking-wide mt-0.5">
+                  Putri ke-4 dari Bapak Jeje dan Ibu Jojoh (Alm)
+                </p>
+              </div>
             </motion.div>
 
             <motion.div

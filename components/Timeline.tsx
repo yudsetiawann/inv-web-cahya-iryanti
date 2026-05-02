@@ -1,26 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Home, Utensils, Camera } from "lucide-react";
+import { Home, Utensils } from "lucide-react";
 
 const itinerary = [
   {
-    time: "09.00",
+    time: "09.00 – 10.00",
     label: "Akad Nikah",
     desc: "Prosesi ijab kabul dan akad pernikahan",
     icon: Home,
   },
   {
-    time: "10.00",
+    time: "10.00 – 14.00",
     label: "Resepsi & Ramah Tamah",
     desc: "Makan siang bersama dengan hidangan pilihan",
     icon: Utensils,
-  },
-  {
-    time: "13.00",
-    label: "Penutupan",
-    desc: "Sesi foto bersama & perpisahan",
-    icon: Camera,
   },
 ];
 
@@ -35,11 +29,11 @@ export default function Timeline() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <p className="font-sans text-[#6b705c] tracking-[0.3em] text-xs uppercase opacity-60 mb-2">
+          <p className="font-sans text-[#793c2a] tracking-[0.3em] text-xs uppercase opacity-60 mb-2">
             Rundown
           </p>
           <h2
-            className="font-script text-[#6b705c]"
+            className="font-script text-[#793c2a]"
             style={{ fontSize: "clamp(2rem, 10vw, 3rem)" }}
           >
             Ringkasan Kegiatan
@@ -68,15 +62,15 @@ export default function Timeline() {
                     <div
                       className="w-[58px] h-[58px] rounded-full flex items-center justify-center"
                       style={{
-                        background: i % 2 === 0 ? "#6b705c" : "#fefae0",
-                        border: `2px solid ${i % 2 === 0 ? "#6b705c" : "rgba(107,112,92,0.3)"}`,
+                        background: i % 2 === 0 ? "#793c2a" : "#fefae0",
+                        border: `2px solid ${i % 2 === 0 ? "#793c2a" : "rgba(107,112,92,0.3)"}`,
                         boxShadow: "0 4px 12px rgba(107,112,92,0.15)",
                       }}
                     >
                       <Icon
                         size={20}
                         className={
-                          i % 2 === 0 ? "text-[#fefae0]" : "text-[#6b705c]"
+                          i % 2 === 0 ? "text-[#fefae0]" : "text-[#793c2a]"
                         }
                       />
                     </div>
@@ -95,7 +89,7 @@ export default function Timeline() {
                     <h3 className="font-serif text-[#2d2d2d] text-lg font-medium leading-tight">
                       {item.label}
                     </h3>
-                    <p className="font-sans text-[#6b705c] text-xs opacity-70 mt-1 leading-relaxed">
+                    <p className="font-sans text-[#793c2a] text-xs opacity-70 mt-1 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>

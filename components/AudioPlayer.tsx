@@ -33,7 +33,7 @@ const AudioPlayer = () => {
 
   // Link lagu placeholder
   const audioUrl =
-    "/audio/a-night-to-remember.mpeg";
+    "/audio/bermuara.mpeg";
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -49,6 +49,11 @@ const AudioPlayer = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    // Attempt autoplay on mount; browser may block if no prior user interaction
+    audio.play()
+      .then(() => setIsPlaying(true))
+      .catch(() => setIsPlaying(false));
 
     const handleTimeUpdate = () => {
       setProgress((audio.currentTime / audio.duration) * 100);
@@ -100,10 +105,10 @@ const AudioPlayer = () => {
         {/* Track Info & Visualizer */}
         <div className="flex-1 flex flex-col items-start justify-center overflow-hidden">
           <p className="font-serif text-base font-semibold text-olive truncate w-full text-left">
-            A Night to Remember
+            Bermuara
           </p>
           <div className="flex items-center gap-2 mt-0.5">
-            <p className="font-serif text-xs text-olive/70 truncate">Laufey</p>
+            <p className="font-serif text-xs text-olive/70 truncate">Rizky Febian & Mahalini</p>
             <span className="text-olive/30 text-xs">•</span>
             {/* Waveform aktif saat lagu menyala */}
             <Waveform isPlaying={isPlaying} />

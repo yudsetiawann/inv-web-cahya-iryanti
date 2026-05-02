@@ -56,7 +56,7 @@ function MiniCalendar() {
                   initial={{ scale: 0.8 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  className="w-8 h-8 mx-auto rounded-full flex items-center justify-center font-sans font-medium text-sm text-[#6b705c] shadow-[0_0_15px_rgba(254,250,224,0.3)]"
+                  className="w-8 h-8 mx-auto rounded-full flex items-center justify-center font-sans font-medium text-sm text-[#793c2a] shadow-[0_0_15px_rgba(254,250,224,0.3)]"
                   style={{ background: "#fefae0" }}
                 >
                   {day}
@@ -113,7 +113,7 @@ export default function ElegantCountdown() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8 }}
-      className="bg-[#6b705c] py-16 px-6 rounded-2xl overflow-hidden shadow-2xl"
+      className="bg-[#793c2a] py-16 px-6 rounded-2xl overflow-hidden shadow-2xl"
     >
       <div className="max-w-sm mx-auto text-center">
         {/* Label Atas */}
