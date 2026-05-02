@@ -108,7 +108,7 @@ export default function HeroSection() {
             <div className="absolute inset-1 rounded-full border border-[#fefae0]/20 flex items-center justify-center">
               <div className="flex flex-col items-center">
                 <span className="font-script text-[#fefae0] text-xl leading-none">
-                  C&I
+                  I&C
                 </span>
                 {/* Garis kecil di bawah monogram agar lebih presisi/formal */}
                 <div className="h-[0.5px] w-6 bg-[#fefae0]/40 mt-0.5" />
@@ -151,23 +151,6 @@ export default function HeroSection() {
               transition={{ delay: 0.9, duration: 1 }}
               className="mb-2"
             >
-              {/* Mempelai Pria */}
-              <div className="flex flex-col items-center">
-                <h1
-                  className="font-script text-[#fefae0] leading-tight"
-                  style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
-                >
-                  Cahya Lesmana
-                </h1>
-                <p className="font-serif text-[#c9a96e]/80 text-[11px] leading-relaxed tracking-wide mt-0.5">
-                  Putra ke-2 dari Bapak Waliman, S.Sos. dan Ibu Yati Rahmayati
-                </p>
-              </div>
-
-              <div className="font-serif text-[#c9a96e] text-3xl italic my-3 leading-none">
-                &amp;
-              </div>
-
               {/* Mempelai Wanita */}
               <div className="flex flex-col items-center">
                 <h1
@@ -178,6 +161,23 @@ export default function HeroSection() {
                 </h1>
                 <p className="font-serif text-[#c9a96e]/80 text-[11px] leading-relaxed tracking-wide mt-0.5">
                   Putri ke-4 dari Bapak Jeje dan Ibu Jojoh (Alm)
+                </p>
+              </div>
+
+              <div className="font-serif text-[#c9a96e] text-3xl italic my-3 leading-none">
+                &amp;
+              </div>
+
+              {/* Mempelai Pria */}
+              <div className="flex flex-col items-center">
+                <h1
+                  className="font-script text-[#fefae0] leading-tight"
+                  style={{ fontSize: "clamp(2rem, 12vw, 4rem)" }}
+                >
+                  Cahya Lesmana
+                </h1>
+                <p className="font-serif text-[#c9a96e]/80 text-[11px] leading-relaxed tracking-wide mt-0.5">
+                  Putra ke-2 dari Bapak Waliman, S.Sos. dan Ibu Yati Rahmayati
                 </p>
               </div>
             </motion.div>
